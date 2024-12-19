@@ -1,5 +1,3 @@
-# D-FLIPDLOP-NEGEDGE
-
 **AIM:**
 
 To implement  D flipflop using verilog and validating their functionality using their functional tables
@@ -31,14 +29,58 @@ Next state of D flip-flop is always equal to data input, D for every positive tr
 /* write all the steps invloved */
 
 **PROGRAM**
-
+```
+module moorefsm(a,clk,z);
+ input a;
+ input clk;
+ output z;
+reg z;
+parameter st0=0,st1=1,st2=2,st3=3;
+reg[0:1]moore_state;
+initial
+begin
+moore_state=st0;
+end
+always @ (posedge(clk))
+case(moore_state)
+st0:
+begin
+z=1;
+if(a) 
+moore_state=st2; 
+end
+st1:
+begin
+z=0;
+if(a)
+moore_state=st3; 
+end
+st2:
+begin
+z=0;
+if(~a)
+moore_state=st1;
+else
+moore_state=st3; 
+end
+st3:
+begin
+z=1;
+if(a) 
+moore_state=st0;
+end
+endcase
+endmodule
+```
 /* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
 */
 
 **RTL LOGIC FOR FLIPFLOPS**
-
+![Screenshot (6)](https://github.com/user-attachments/assets/db570d0a-4d26-4690-8d52-9fdbcdb3c4b8)
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-
+![Screenshot (7)](https://github.com/user-attachments/assets/328fd4eb-ffe0-4dea-a069-bc8c6b22fd31)
 
 **RESULTS**
+Thus the OUTPUT’s of Moore and Mealy fsm are verified by synthesizing and simulating the 
+VHDL and VERILOG code.
